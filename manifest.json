@@ -1,7 +1,7 @@
 {
   "name": "Quick Maze",
   "description" : "A tiny maze game to play when bored.",
-  "version": "0.4",
+  "version": "1.0",
   "manifest_version": 2,
   "browser_action": {
       "default_popup": "index.html",
