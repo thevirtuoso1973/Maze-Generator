@@ -2,6 +2,7 @@
 -i think algo works well enough so... ✓
 -draw actual maze using final grid ✓
 -Add player + movement
+-finish function checkIfValid
 -fin?
 */
 
@@ -11,7 +12,7 @@
 walls are present.
 */
 
-//logical maze:
+//LOGIC (maze):
 let visited = {} //object that holds visited cells, acts as global var
 function generateMaze() {
   var grid = [
@@ -104,16 +105,22 @@ function fourBitBinary(number) {
   return tmp;
 } // returns a four bit binary number (as a string)
 
-//visuals:
+//VISUALS:
+//some global scope variables:
+let playerX = 25;
+let playerY = 25;
+let gridLogic;
+
 function setup() {
   let cnv = createCanvas(500, 500);
   cnv.parent("mazeCanvas");
   rect(0, 0, 500, 500);
-  noLoop();
+  noLoop(); //draw does not repeatedly execute
 };
 
 function draw() {
-  let gridLogic = generateMaze();
+  background(254);
+  gridLogic = generateMaze();
   let x = 0;
   let y = 0;
   for (let array of gridLogic) {
@@ -132,12 +139,55 @@ function draw() {
   }
   line(500, 0, 500, 500);
   line(0, 500, 500, 500);
+  fill('red');
+  circle(playerX, playerY, 25);
+  fill('green');
+  triangle(475, 490, 460, 470, 490, 470);
 };
 
 function keyPressed() {
-  if (keyCode === 32) {
+  if (keyCode === 32) { //if spacebar was pressed:
+    playerX = 25;
+    playerY = 25;
     visited = {};
     clear();
     redraw();
+  } else if (keyCode === RIGHT_ARROW && checkIfValid(2)) { //move right
+    noStroke();
+    fill(255);
+    circle(playerX, playerY, 30);
+    stroke(1);
+    fill('red');
+    playerX += 50;
+    circle(playerX, playerY, 25);
+  } else if (keyCode === LEFT_ARROW && checkIfValid(4)) { //move left
+    noStroke();
+    fill(255);
+    circle(playerX, playerY, 30);
+    stroke(1);
+    fill('red');
+    playerX -= 50;
+    circle(playerX, playerY, 25);
+  } else if (keyCode === UP_ARROW && checkIfValid(1)) { //move up
+    noStroke();
+    fill(255);
+    circle(playerX, playerY, 30);
+    stroke(1);
+    fill('red');
+    playerY -= 50;
+    circle(playerX, playerY, 25);
+  } else if (keyCode === DOWN_ARROW && checkIfValid(3)) { //move down
+    noStroke();
+    fill(255);
+    circle(playerX, playerY, 30);
+    stroke(1);
+    fill('red');
+    playerY += 50;
+    circle(playerX, playerY, 25);
   }
+}
+
+//MOVEMENT CHECKS:
+function checkIfValid(num) {
+  return true;
 }
