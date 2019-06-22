@@ -1,8 +1,8 @@
 /* TODO:
 -i think algo works well enough so... ✓
 -draw actual maze using final grid ✓
--Add player + movement
--finish function checkIfValid
+-Add player + movement ✓
+-finish function checkIfValid ✓
 -fin?
 */
 
@@ -109,7 +109,8 @@ function fourBitBinary(number) {
 //some global scope variables:
 let playerX = 25;
 let playerY = 25;
-let gridLogic;
+let gridLogic; // array that holds grid
+let won = false;
 
 function setup() {
   let cnv = createCanvas(500, 500);
@@ -147,11 +148,14 @@ function draw() {
 
 function keyPressed() {
   if (keyCode === 32) { //if spacebar was pressed:
+    won = false;
     playerX = 25;
     playerY = 25;
     visited = {};
     clear();
     redraw();
+  } else if (won) {
+    return;
   } else if (keyCode === RIGHT_ARROW && checkIfValid(2)) { //move right
     noStroke();
     fill(255);
@@ -185,9 +189,44 @@ function keyPressed() {
     playerY += 50;
     circle(playerX, playerY, 25);
   }
+  let distance = dist(playerX, playerY, 475, 490);
+  if (distance <= 30) {
+    textSize(32);
+    text('You win!', 55, 180);
+    text('(Press space to play again)', 55, 230);
+    won = true;
+  }
 }
 
 //MOVEMENT CHECKS:
-function checkIfValid(num) {
-  return true;
+function checkIfValid(num) { //1 - up, 2 - right, 3 - down, 4 - left,
+  let xIndex = (playerX+25)/50 - 1;
+  let yIndex = (playerY+25)/50 - 1;
+  let binaryStr = fourBitBinary(gridLogic[yIndex][xIndex]);
+  console.log(xIndex, yIndex, gridLogic[yIndex][xIndex], binaryStr);
+  if (num === 1) {
+    if (binaryStr[3] === "1") {
+      return false;
+    } else {
+      return true;
+    }
+  } else if (num === 2) {
+    if (binaryStr[2] === "1") {
+      return false;
+    } else {
+      return true;
+    }
+  } else if (num === 3) {
+    if (binaryStr[1] === "1") {
+      return false;
+    } else {
+      return true;
+    }
+  } else if (num === 4) {
+    if (binaryStr[0] === "1") {
+      return false;
+    } else {
+      return true;
+    }
+  }
 }
