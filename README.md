@@ -1,4 +1,7 @@
 # Maze-Generator
+
+Play it on my website [here](https://thevirtuoso1973.github.io/projects/maze/)!
+
 Initially built as an extension, it is a small maze game that randomly generates a maze each time you play.
 Coded in HTML and JS.
 
