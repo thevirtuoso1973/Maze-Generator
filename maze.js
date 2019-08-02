@@ -230,3 +230,56 @@ function checkIfValid(num) { //1 - up, 2 - right, 3 - down, 4 - left,
     }
   }
 }
+
+//Simulate a key press on button press.
+function simulateKey(keyCode) {
+  if (keyCode === "SPACEBAR") { //if spacebar was pressed:
+    won = false;
+    playerX = 25;
+    playerY = 25;
+    visited = {};
+    clear();
+    redraw();
+  } else if (won) {
+    return;
+  } else if (keyCode === "RIGHT_ARROW" && checkIfValid(2)) { //move right
+    noStroke();
+    fill(255);
+    circle(playerX, playerY, 30);
+    stroke(1);
+    fill('red');
+    playerX += 50;
+    circle(playerX, playerY, 25);
+  } else if (keyCode === "LEFT_ARROW" && checkIfValid(4)) { //move left
+    noStroke();
+    fill(255);
+    circle(playerX, playerY, 30);
+    stroke(1);
+    fill('red');
+    playerX -= 50;
+    circle(playerX, playerY, 25);
+  } else if (keyCode === "UP_ARROW" && checkIfValid(1)) { //move up
+    noStroke();
+    fill(255);
+    circle(playerX, playerY, 30);
+    stroke(1);
+    fill('red');
+    playerY -= 50;
+    circle(playerX, playerY, 25);
+  } else if (keyCode === "DOWN_ARROW" && checkIfValid(3)) { //move down
+    noStroke();
+    fill(255);
+    circle(playerX, playerY, 30);
+    stroke(1);
+    fill('red');
+    playerY += 50;
+    circle(playerX, playerY, 25);
+  }
+  let distance = dist(playerX, playerY, 475, 490);
+  if (distance <= 30) {
+    textSize(32);
+    text('You win!', 55, 180);
+    text('(Press space to play again)', 55, 230);
+    won = true;
+  }
+}
