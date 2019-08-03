@@ -3,6 +3,7 @@
   background: transparent;
   border: 2px solid #0099CC;
   border-radius: 6px;
+  font-size: 30px;
 }
 
 .btn:hover {
